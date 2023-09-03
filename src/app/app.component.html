@@ -1,0 +1,37 @@
+<section class="w-full h-full content">
+  <div class="card flex justify-content-center p-3 h-full">
+    <p-card header="Receituario" [style]="{background: '#bef2ff', borderRadius: '10px'}">
+      <section class="flex gap-2">
+        <section class="w-6 form">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-2 h-full">
+            <section class="inputs flex flex-column gap-3">
+              <input type="text" pInputText formControlName="nome" />
+              <textarea rows="10" cols="30" pInputTextarea formControlName="dados"></textarea>
+            </section>
+            <section class="btn">
+              <p-button label="Submit" type="submit" [loading]="loading"></p-button>
+            </section>
+          </form>
+        </section>
+        <section class="shadow-1 border-round-md" [style]="{background: '#c5ebff'}">
+          <section class="result" [style]="{background: '#c5ebff'}" id="result">
+            <section class="infos">
+              <p class="name">safas</p>
+              <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa doloribus voluptate
+                voluptatum. Ipsa quaerat alias laudantium ipsam ullam, culpa unde dolores cupiditate nobis dolore,
+                excepturi omnis dolorem cum? Quod, quisquam.</p>
+            </section>
+          </section>
+          <section class="btn">
+            <p-button label="Gerar PDF" (click)="generatePDF()"></p-button>
+          </section>
+        </section>
+      </section>
+      <section class="flex justify-content-end pt-2">
+        <section class="w-3 border-circle">
+          <img class="w-full h-full border-circle" src="assets/img/happy.jpeg">
+        </section>
+      </section>
+    </p-card>
+  </div>
+</section>
