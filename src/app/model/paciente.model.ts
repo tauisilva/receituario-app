@@ -1,5 +1,6 @@
 export class Paciente {
-  nome : string | undefined;
-  dados : string | undefined;
-
+  dados: string | undefined;
+  date: Date | undefined;
+  img: string | undefined;
+  nome: string | undefined;
 }

@@ -1,35 +1,60 @@
 <section class="w-full h-full content">
   <div class="card flex justify-content-center p-3 h-full">
-    <p-card header="Receituario" [style]="{background: '#bef2ff', borderRadius: '10px'}">
-      <section class="flex gap-2">
-        <section class="w-6 form">
-          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-2 h-full">
+
+    <p-card [style]="{background: '#bef2ff', borderRadius: '10px'}">
+      <ng-template pTemplate="header">
+        <section class="w-full flex justify-content-between p-1">
+          <p class="text-4xl m-0 font-bold">Receituário</p>
+          <p-avatar image="assets/img/happyGirl.jpeg" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+        </section>
+      </ng-template>
+      <section class="flex flex-column gap-2 md:flex-row">
+        <section class="w-full form md:w-6">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-3 flex flex-column h-full">
             <section class="inputs flex flex-column gap-3">
-              <input type="text" pInputText formControlName="nome" />
+              <span class="p-float-label">
+                <input pInputText class="w-full" id="username" formControlName="nome" />
+                <label htmlFor="username">Nome do Paciente</label>
+              </span>
+              <!-- <p-calendar class="max-w-full"  [inline]="true" [showWeek]="true" formControlName="date" selectionMode="range" [showTime]="true" [showSeconds]="true" [showButtonBar]="true"></p-calendar> -->
               <textarea rows="10" cols="30" pInputTextarea formControlName="dados"></textarea>
+              <section class="imgs flex gap-1">
+                <section class="flex w-6 gap-1">
+                  <p-checkbox formControlName="img"
+                    value="assets/img/happy.jpeg"></p-checkbox>
+                  <section class="border-circle">
+                    <img class="w-full h-full border-circle" src="assets/img/happy.jpeg">
+                  </section>
+                </section>
+                <section class="flex w-6 gap-1">
+                  <p-checkbox formControlName="img" value="assets/img/scared.jpeg"></p-checkbox>
+                  <section class="border-circle">
+                    <img class="w-full h-full border-circle" src="assets/img/scared.jpeg">
+                  </section>
+                </section>
+
+              </section>
             </section>
-            <section class="btn">
-              <p-button label="Submit" type="submit" [loading]="loading"></p-button>
+            <section class="btn w-full md:justify-content-center md:flex">
+              <p-button styleClass="w-full md:w-auto"  label="Confirmar" type="submit" [loading]="loading"></p-button>
             </section>
           </form>
         </section>
-        <section class="shadow-1 border-round-md" [style]="{background: '#c5ebff'}">
+        <section class="shadow-1 border-round-md w-full sm:w-6" [style]="{background: '#c5ebff'}">
           <section class="result" [style]="{background: '#c5ebff'}" id="result">
             <section class="infos">
-              <p class="name">safas</p>
-              <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa doloribus voluptate
-                voluptatum. Ipsa quaerat alias laudantium ipsam ullam, culpa unde dolores cupiditate nobis dolore,
-                excepturi omnis dolorem cum? Quod, quisquam.</p>
+              <p class="name">{{name}}</p>
+              <p class="text">{{data}}</p>
+            </section>
+            <section class="flex justify-content-end pt-2">
+              <section class="w-3 border-circle">
+                <img class="w-full h-full border-circle" src="{{img}}">
+              </section>
             </section>
           </section>
           <section class="btn">
             <p-button label="Gerar PDF" (click)="generatePDF()"></p-button>
           </section>
-        </section>
-      </section>
-      <section class="flex justify-content-end pt-2">
-        <section class="w-3 border-circle">
-          <img class="w-full h-full border-circle" src="assets/img/happyGirl.jpeg">
         </section>
       </section>
     </p-card>

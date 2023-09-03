@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Paciente } from './model/paciente.model';
 import html2canvas from 'html2canvas';
 import * as jsPDF from 'jspdf';
+import { CheckboxChangeEvent } from 'primeng/checkbox';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,6 +19,9 @@ export class AppComponent {
   paciente: Paciente | undefined;
   name: string | undefined;
   data: string | undefined;
+  img: string | undefined;
+  date: Date | undefined;
+  // cor: String = 'red';
   constructor() {
     this.form = this.setForm();
     this.form2 = this.setForm();
@@ -29,8 +33,10 @@ export class AppComponent {
 
   setForm(): FormGroup {
     return new FormGroup({
+      dados: new FormControl(null),
+      date: new FormControl(null),
+      img: new FormControl(null),
       nome: new FormControl(null),
-      dados: new FormControl(null)
     });
   }
   onSubmit() {
@@ -40,7 +46,7 @@ export class AppComponent {
         console.log(this.form.value);
         this.loading = false;
         this.skeleton = true;
-        this.pdf =true;
+        this.pdf = true;
         this.loadData(this.form.value);
       }, 2000);
     }
@@ -52,8 +58,17 @@ export class AppComponent {
     if (p) {
       this.name = p.nome;
       this.data = p.dados;
+      this.date = p.date;
+      this.img = p.img;
       this.skeleton = false;
       // this.pdf = p.dados;
+      setTimeout(() => {
+        this.form.patchValue({
+          dados: null,
+          nome: null,
+          img:null
+        })
+      }, 3000)
     }
   }
   generatePDF() {
@@ -64,39 +79,33 @@ export class AppComponent {
         filename: 'documento.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
 
-      // Personalize o CSS da div para preencher a página com a cor de fundo
-      element.style.backgroundColor = '#c5ebff'; // Substitua pela cor desejada
-
       html2canvas(element, pdfOptions.html2canvas).then(canvas => {
-        const pdf = new jsPDF.jsPDF('landscape');
+        const pdf = new jsPDF.jsPDF();
         const imgData = canvas.toDataURL('image/jpeg', pdfOptions.image.quality);
 
-        const pdfWidth: number = (canvas.height * 0.5); // Utilize 50% da altura da página
-        const pdfHeight: number = canvas.height; // Utilize 100% da altura da página
+        const pdfWidth: number = canvas.width
+        const pdfHeight: number = canvas.height;
+        const xPosition = pdf.internal.pageSize.getWidth() - pdfWidth - 10; // 10 pontos de margem à direita
+        const yPosition = (pdf.internal.pageSize.getHeight() - pdfHeight) / 2; // Centraliza verticalmente
+        pdf.addImage(imgData, 'JPEG', xPosition, yPosition, pdfWidth, pdfHeight);
 
-        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
 
         // Carregue a imagem dentro do PDF
         const img = new Image();
         img.src = 'assets/img/happy.jpeg'; // Substitua pelo caminho correto da imagem
         img.onload = () => {
-          pdf.addImage(img, 'JPEG', 10, 10, 50, 50); // Ajuste a posição e o tamanho conforme necessário
+          const imageWidth = pdfWidth * 0.5; // Ajuste a largura da imagem como necessário
+          const imageHeight = (imageWidth * img.height) / img.width; // Mantém a proporção da imagem
+          pdf.addImage(img, 'JPEG', 10, 10, imageWidth, imageHeight); // Ajuste a posição e o tamanho conforme necessário
 
           const blob = pdf.output('blob');
           const url = URL.createObjectURL(blob);
           window.open(url, '_blank');
-
-          // Restaure o CSS da div após a geração do PDF
-          element.style.backgroundColor = 'transparent';
         };
       });
     }
   }
-
-
-
-
 }
