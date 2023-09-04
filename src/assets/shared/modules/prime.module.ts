@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
+import { BlockUIModule } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
@@ -19,6 +20,7 @@ import { ToastModule } from 'primeng/toast';
   ],
   exports: [
     AvatarModule,
+    BlockUIModule,
     ButtonModule,
     CalendarModule,
     CardModule,

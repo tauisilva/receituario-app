@@ -1,4 +1,5 @@
 <section class="w-full h-full content">
+  <p-blockUI [blocked]="blockedDocument"></p-blockUI>
   <div class="card flex justify-content-center p-3 h-full">
 
     <p-card [style]="{background: '#bef2ff', borderRadius: '10px'}">
@@ -68,7 +69,7 @@
           </section>
           <section class="btn w-full md:justify-content-center md:flex">
             <p-toast position="bottom-center"></p-toast>
-            <p-button styleClass="w-full md:w-auto" label="Gerar PDF" (click)="generatePDF()"></p-button>
+            <p-button styleClass="w-full md:w-auto" label="Gerar PDF" [loading]="loading" (click)="generatePDF()"></p-button>
           </section>
         </section>
         <section *ngIf="skeleton" class="w-full flex flex-column h-full gap-2 sm:w-6">

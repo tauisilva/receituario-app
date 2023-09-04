@@ -24,6 +24,7 @@ export class AppComponent {
   img: string[] = [];
   date: Date | undefined;
   color: String = '#c5ebff';
+  blockedDocument: boolean = false;
   constructor(
     private msgService: MessageService
   ) {
@@ -79,7 +80,9 @@ export class AppComponent {
     this.msgService.add({ severity: 'error', summary: 'Erro', detail: 'Ainda em Desenvolvimento' });
   }
   generatePDF() {
+    this.loading = true;
     const a4 = document.getElementById('a4');
+    this.blockedDocument = true;
     if (a4) {
       a4.style.display = 'flex';
       const element = document.getElementById('result');
@@ -99,10 +102,11 @@ export class AppComponent {
           pdf.addImage(imgData, 'PNG', 0, 0, width, height);
 
 
-          // pdf.save('documento.pdf');
-          pdf.output('dataurlnewwindow');
+          // pdf.output('dataurlnewwindow');
           a4.style.display = 'none';
-
+          pdf.save('documento.pdf');
+          this.blockedDocument = false;
+          this.loading = false;
 
 
         });
