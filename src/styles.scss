@@ -1,6 +1,7 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+@import url("https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@1,300;1,400&family=Great+Vibes&family=Raleway:wght@100;300&display=swap");
 body {
   font-family: var(--font-family);
   margin: 0;
@@ -8,4 +9,13 @@ body {
   height: 100vh;
   // background-color: hsl(203, 71%, 83%);
   background: #bef2ff;
+}
+.fontName {
+  font-family: "Great Vibes", cursive;
+}
+.fontDados {
+  font-family: "Cormorant", serif;
+}
+.fontTxt {
+  font-family: "Raleway", sans-serif;
 }
