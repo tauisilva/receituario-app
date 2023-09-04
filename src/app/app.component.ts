@@ -97,12 +97,12 @@ export class AppComponent {
 
           console.log(width, height);
           pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+
+
           // pdf.save('documento.pdf');
-
-
+          pdf.output('dataurlnewwindow');
           a4.style.display = 'none';
 
-          pdf.output('dataurlnewwindow');
 
 
         });
