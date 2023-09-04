@@ -1,10 +1,16 @@
-@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Ysabeau+Office:ital,wght@1,1;1,200&display=swap');
 section.content {
   background: #bef2ff;
-  .result{
-    //tamanho folha a4 2480px X 3508px
-    // width: 50%;
-    // height: 100%;
-    // outline: 1px solid red;
+  .preview {
+    background: linear-gradient(
+      180deg,
+      rgba(134, 206, 254, 1) 0%,
+      rgba(212, 242, 252, 1) 99%,
+      rgba(222, 241, 248, 1) 100%
+    );
   }
+}
+.font1 {
+  font-family: 'Dancing Script', cursive;
+
 }
