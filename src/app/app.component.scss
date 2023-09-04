@@ -12,5 +12,23 @@ section.content {
 }
 .font1 {
   font-family: 'Dancing Script', cursive;
-
+  font-size: 1rem;
+}
+.f2{
+  font-size: 0.75rem;
+}
+.a4{
+  height: 148.5mm;
+  width: 210mm;
+  display: none;
+}
+.results{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .infos{
+    height: 100%;
+  }
 }

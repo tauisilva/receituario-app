@@ -79,24 +79,34 @@ export class AppComponent {
     this.msgService.add({ severity: 'error', summary: 'Erro', detail: 'Ainda em Desenvolvimento' });
   }
   generatePDF() {
-    const element = document.getElementById('result');
-    if (element) {
-      html2canvas(element).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF.jsPDF('landscape');
+    const a4 = document.getElementById('a4');
+    if (a4) {
+      a4.style.display = 'flex';
+      const element = document.getElementById('result');
+      if (element) {
+        html2canvas(element).then((canvas) => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF.jsPDF('landscape');
 
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const width = (pageWidth * 0.5);
-        const height = (pageHeight * 1.0);
+          const pageWidth = pdf.internal.pageSize.getWidth();
+          const pageHeight = pdf.internal.pageSize.getHeight();
+          const width = (pageWidth * 0.5);
+          const height = (pageHeight * 1.0);
+          // const width = element.offsetWidth;
+          // const height = element.offsetHeight;
 
-        console.log(width, height);
-        pdf.addImage(imgData, 'PNG', 0, 0, width, height);
-        // pdf.save('documento.pdf');
-        pdf.output('dataurlnewwindow');
+          console.log(width, height);
+          pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+          // pdf.save('documento.pdf');
 
 
-      });
+          a4.style.display = 'none';
+
+          pdf.output('dataurlnewwindow');
+
+
+        });
+      }
     }
   }
 }
