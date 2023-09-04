@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Paciente } from './model/paciente.model';
 import html2canvas from 'html2canvas';
 import * as jsPDF from 'jspdf';
+
+import { Paciente } from './model/paciente.model';
+import { MessageService } from 'primeng/api';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,16 +14,20 @@ import * as jsPDF from 'jspdf';
 export class AppComponent {
   title = 'receituario';
   form: FormGroup;
-  form2: FormGroup;
   loading: boolean = false;
   pdf: boolean = false;
+  content: boolean = false;
   skeleton: boolean = false;
   paciente: Paciente | undefined;
   name: string | undefined;
   data: string | undefined;
-  constructor() {
+  img: string[] = [];
+  date: Date | undefined;
+  color: String = '#c5ebff';
+  constructor(
+    private msgService: MessageService
+  ) {
     this.form = this.setForm();
-    this.form2 = this.setForm();
   }
 
   ngOnInit(): void {
@@ -29,74 +36,67 @@ export class AppComponent {
 
   setForm(): FormGroup {
     return new FormGroup({
+      dados: new FormControl(null),
+      date: new FormControl(null),
+      img: new FormControl(null),
       nome: new FormControl(null),
-      dados: new FormControl(null)
     });
   }
   onSubmit() {
     this.loading = true;
     if (this.form.valid) {
       setTimeout(() => {
-        console.log(this.form.value);
         this.loading = false;
         this.skeleton = true;
-        this.pdf =true;
+        this.pdf = true;
         this.loadData(this.form.value);
       }, 2000);
     }
   }
 
   loadData(p: Paciente) {
-    console.table(p); // Exibir os valores do form no console
-
     if (p) {
       this.name = p.nome;
       this.data = p.dados;
-      this.skeleton = false;
+      this.date = p.date;
+      this.img = p.img;
       // this.pdf = p.dados;
+      this.color = p.img[0] === 'happy.jpeg' ? '#c5ebff' : p.img[0] === 'scared.png' ? '#bef2ff' : '#c5ebff';
+      setTimeout(() => {
+        this.form.patchValue({
+          dados: null,
+          nome: null,
+          img: null
+        })
+        this.skeleton = false;
+        this.content = true;
+      }, 1000)
     }
   }
+
+
+  msgShow() {
+    this.msgService.add({ severity: 'error', summary: 'Erro', detail: 'Ainda em Desenvolvimento' });
+  }
   generatePDF() {
-    const element = document.getElementById('result'); // Substitua 'result' pelo ID da sua div
-
+    const element = document.getElementById('result');
     if (element) {
-      const pdfOptions = {
-        filename: 'documento.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-      };
-
-      // Personalize o CSS da div para preencher a página com a cor de fundo
-      element.style.backgroundColor = '#c5ebff'; // Substitua pela cor desejada
-
-      html2canvas(element, pdfOptions.html2canvas).then(canvas => {
+      html2canvas(element).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF.jsPDF('landscape');
-        const imgData = canvas.toDataURL('image/jpeg', pdfOptions.image.quality);
 
-        const pdfWidth: number = (canvas.height * 0.5); // Utilize 50% da altura da página
-        const pdfHeight: number = canvas.height; // Utilize 100% da altura da página
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const width = (pageWidth * 0.5);
+        const height = (pageHeight * 1.0);
 
-        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        console.log(width, height);
+        pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+        // pdf.save('documento.pdf');
+        pdf.output('dataurlnewwindow');
 
-        // Carregue a imagem dentro do PDF
-        const img = new Image();
-        img.src = 'assets/img/happy.jpeg'; // Substitua pelo caminho correto da imagem
-        img.onload = () => {
-          pdf.addImage(img, 'JPEG', 10, 10, 50, 50); // Ajuste a posição e o tamanho conforme necessário
 
-          const blob = pdf.output('blob');
-          const url = URL.createObjectURL(blob);
-          window.open(url, '_blank');
-
-          // Restaure o CSS da div após a geração do PDF
-          element.style.backgroundColor = 'transparent';
-        };
       });
     }
   }
-
-
-
-
 }

@@ -1,35 +1,94 @@
 <section class="w-full h-full content">
   <div class="card flex justify-content-center p-3 h-full">
-    <p-card header="Receituario" [style]="{background: '#bef2ff', borderRadius: '10px'}">
-      <section class="flex gap-2">
-        <section class="w-6 form">
-          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-2 h-full">
+
+    <p-card [style]="{background: '#bef2ff', borderRadius: '10px'}">
+      <ng-template pTemplate="header">
+        <section class="w-full flex justify-content-between p-1">
+          <p class="text-4xl m-0 font-bold">Receituário</p>
+          <p-avatar image="assets/img/happyGirl.jpeg" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+        </section>
+      </ng-template>
+      <section class="flex flex-column gap-3 md:flex-row">
+        <section class="w-full form md:w-6">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-3 flex flex-column h-full">
             <section class="inputs flex flex-column gap-3">
-              <input type="text" pInputText formControlName="nome" />
-              <textarea rows="10" cols="30" pInputTextarea formControlName="dados"></textarea>
+              <!-- <span class="p-float-label">
+                <input pInputText class="w-full" id="username" formControlName="nome" />
+                <label htmlFor="username">Nome do Paciente</label>
+              </span> -->
+              <span class="p-float-label">
+                <label htmlFor="infos">Informações:</label>
+              </span>
+              <p-editor formControlName="dados" [style]="{ height: '10rem' }"></p-editor>
+              <!-- <p-calendar class="max-w-full"  [inline]="true" [showWeek]="true" formControlName="date" selectionMode="range" [showTime]="true" [showSeconds]="true" [showButtonBar]="true"></p-calendar> -->
+              <section class="imgs flex gap-1">
+                <section class="flex w-6 gap-1">
+                  <p-checkbox formControlName="img" value="happy.jpeg"></p-checkbox>
+                  <section class="border-circle">
+                    <img class="w-full h-full border-circle" src="assets/img/happy.jpeg">
+                  </section>
+                </section>
+                <section class="flex w-6 gap-1">
+                  <p-checkbox formControlName="img" value="scared.png"></p-checkbox>
+                  <section class="border-circle shadow-1">
+                    <img class="w-full h-full border-circle" src="assets/img/scared.png">
+                  </section>
+                </section>
+
+              </section>
             </section>
-            <section class="btn">
-              <p-button label="Submit" type="submit" [loading]="loading"></p-button>
+            <section class="btn w-full md:justify-content-center md:flex">
+              <p-button styleClass="w-full md:w-auto" label="Confirmar" type="submit" [loading]="loading"></p-button>
             </section>
           </form>
         </section>
-        <section class="shadow-1 border-round-md" [style]="{background: '#c5ebff'}">
-          <section class="result" [style]="{background: '#c5ebff'}" id="result">
-            <section class="infos">
-              <p class="name">safas</p>
-              <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa doloribus voluptate
-                voluptatum. Ipsa quaerat alias laudantium ipsam ullam, culpa unde dolores cupiditate nobis dolore,
-                excepturi omnis dolorem cum? Quod, quisquam.</p>
+        <section *ngIf="!skeleton && content" class="w-full flex flex-column h-full gap-2 sm:w-6">
+          <section class="shadow-1 border-round-md result" [style.background]="color" id="result">
+            <section class="headers flex">
+              <p-avatar image="assets/img/{{img}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+              <section>
+                <p class="m-0 text-xl font1">Nome Pessoa</p>
+                <p class="m-0 text-sm">Dentista</p>
+                <p class="m-0 text-xs font-bold">CRO/BR 000</p>
+              </section>
+            </section>
+            <section class="infos h-10rem px-2">
+              <p class="line-height-1" [innerHTML]="data"></p>
+            </section>
+            <section class="footer flex w-full justify-content-between">
+              <section class="p-2 flex flex-column justify-content-end">
+                <p class="m-0 text-xs font-bold">(61)XXXX - XXXX</p>
+                <p class="m-0 text-xs font-bold">email@gmail.com</p>
+                <p class="m-0 text-xs font-bold">Rua x, x dado, 73xxx-00 - cidade/BR</p>
+              </section>
+              <section class="img border-circle w-7rem">
+                <img class="w-full h-full border-circle" src="assets/img/{{img}}">
+              </section>
             </section>
           </section>
-          <section class="btn">
-            <p-button label="Gerar PDF" (click)="generatePDF()"></p-button>
+          <section class="btn w-full md:justify-content-center md:flex">
+            <p-toast position="bottom-center"></p-toast>
+            <p-button styleClass="w-full md:w-auto" label="Gerar PDF" (click)="msgShow()"></p-button>
           </section>
         </section>
-      </section>
-      <section class="flex justify-content-end pt-2">
-        <section class="w-3 border-circle">
-          <img class="w-full h-full border-circle" src="assets/img/happy.jpeg">
+        <section *ngIf="skeleton" class="w-full flex flex-column h-full gap-2 sm:w-6">
+          <div class="flex mb-3">
+            <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+            <div>
+              <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+              <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+              <p-skeleton height=".5rem"></p-skeleton>
+            </div>
+          </div>
+          <p-skeleton width="100%" height="150px"></p-skeleton>
+          <div class="flex justify-content-between mt-3">
+            <div>
+              <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+              <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+              <p-skeleton height=".5rem"></p-skeleton>
+            </div>
+            <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+          </div>
         </section>
       </section>
     </p-card>
