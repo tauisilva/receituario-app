@@ -1,8 +1,8 @@
-<section class="w-full h-full content">
+<section class="w-full h-full flex justify-content-center align-content-center">
   <p-blockUI [blocked]="blockedDocument"></p-blockUI>
-  <div class="card flex justify-content-center p-3 h-full">
+  <div class="card flex justify-content-center align-items-center p-3 h-full">
 
-    <p-card [style]="{background: '#bef2ff', borderRadius: '10px'}">
+    <p-card [style]="{background: '#bef2ff', borderRadius: '10px', 'min-height' : '100%'}">
       <ng-template pTemplate="header">
         <section class="w-full flex justify-content-between p-1">
           <p class="text-4xl m-0 font-bold">Receituário</p>
@@ -44,7 +44,8 @@
           </form>
         </section>
         <section *ngIf="!skeleton && content" class="w-full flex flex-column h-full gap-2 sm:w-6">
-          <section class="shadow-1 border-round-md" [style.background]="'url(./../assets/img/marca.png) no-repeat center center ' + color">
+          <section class="shadow-1 border-round-md"
+            [style.background]="'url(./../assets/img/marca.png) no-repeat center center ' + color">
             <section class="headers flex">
               <p-avatar image="assets/img/{{img}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
               <section>
@@ -58,7 +59,7 @@
                 <p class="text-base m-0">{{name}}</p>
                 <p class="m-0 fontTxt">{{date}}</p>
               </section>
-              <p class="line-height-1 text-xl font-bold fontTxt"[innerHTML]="data"></p>
+              <p class="line-height-1 text-xl font-bold fontTxt" [innerHTML]="data"></p>
             </section>
             <section class="footer flex w-full justify-content-between">
               <section class="p-2 flex flex-column justify-content-end">
@@ -98,7 +99,8 @@
         </section>
       </section>
       <section class="a4" id="a4">
-        <section class="results gap-2 marca" id="result" [style.background]="'url(./../assets/img/marca.png) no-repeat center center ' + color">
+        <section class="results gap-2 marca" id="result"
+          [style.background]="'url(./../assets/img/marca.png) no-repeat center center ' + color">
           <section class="headers flex">
             <p-avatar image="assets/img/{{img}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
             <section class="p-1">
@@ -114,10 +116,10 @@
           </section> -->
           <section class="infos min-h-10rem px-2 h-full">
             <section class="fontTxt font-bold flex justify-content-between">
-              <p class="text-base m-0">{{name}}</p>
+              <p class="font-bold m-0">{{name}}</p>
               <p class="m-0 fontTxt">{{date}}</p>
             </section>
-            <p class="line-height-1 text-xl font-bold fontTxt"[innerHTML]="data"></p>
+            <p class="line-height-1 text-xl font-bold fontTxt" [innerHTML]="data"></p>
           </section>
           <section class="footer flex w-full justify-content-between">
             <section class="p-2 flex flex-column justify-content-end">
@@ -126,7 +128,6 @@
               <p class="m-0 text-xs font-bold fontDados">Rua x, x dado, 73xxx-00 - cidade/BR</p>
             </section>
             <section class="img border-circle w-7rem">
-              <!-- <img class="w-full h-full border-circle" src="assets/img/{{img}}"> -->
               <img class="w-full h-full border-circle" src="assets/img/{{img}}">
             </section>
           </section>

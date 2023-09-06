@@ -4,7 +4,6 @@ import html2canvas from 'html2canvas';
 import * as jsPDF from 'jspdf';
 
 import { Paciente } from './model/paciente.model';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +25,6 @@ export class AppComponent {
   color: String = '#c5ebff';
   blockedDocument: boolean = false;
   constructor(
-    private msgService: MessageService
   ) {
     this.form = this.setForm();
   }
@@ -77,41 +75,86 @@ export class AppComponent {
   }
 
 
-  msgShow() {
-    this.msgService.add({ severity: 'error', summary: 'Erro', detail: 'Ainda em Desenvolvimento' });
-  }
+  // msgShow() {
+  //   this.msgService.add({ severity: 'error', summary: 'Erro', detail: 'Ainda em Desenvolvimento' });
+  // }
+  // generatePDF() {
+  //   this.loading = true;
+  //   const a4 = document.getElementById('a4');
+  //   this.blockedDocument = true;
+  //   if (a4) {
+  //     a4.style.display = 'flex';
+  //     const element = document.getElementById('result');
+  //     if (element) {
+  //       html2canvas(element).then((canvas) => {
+  //         const imgData = canvas.toDataURL('image/png');
+  //         const pdf = new jsPDF.jsPDF('landscape');
+
+  //         const pageWidth = pdf.internal.pageSize.getWidth();
+  //         const pageHeight = pdf.internal.pageSize.getHeight();
+  //         const width = (pageWidth * 0.5);
+  //         const height = (pageHeight * 1.0);
+  //         // const width = element.offsetWidth;
+  //         // const height = element.offsetHeight;
+
+  //         console.log(width, height);
+  //         pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+
+
+  //         // pdf.output('dataurlnewwindow');
+  //         a4.style.display = 'none';
+  //         // pdf.save('documento.pdf');
+  //         window.open(pdf.output('bloburl'))
+  //         this.blockedDocument = false;
+  //         this.loading = false;
+
+
+  //       });
+  //     }
+  //   }
+  // }
   generatePDF() {
     this.loading = true;
     const a4 = document.getElementById('a4');
     this.blockedDocument = true;
+
     if (a4) {
       a4.style.display = 'flex';
       const element = document.getElementById('result');
+
       if (element) {
-        html2canvas(element).then((canvas) => {
-          const imgData = canvas.toDataURL('image/png');
-          const pdf = new jsPDF.jsPDF('landscape');
+        const pdf = new jsPDF.jsPDF('landscape');
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const width = (pageWidth * 0.5);
+        const height = (pageHeight * 1.0);
 
-          const pageWidth = pdf.internal.pageSize.getWidth();
-          const pageHeight = pdf.internal.pageSize.getHeight();
-          const width = (pageWidth * 0.5);
-          const height = (pageHeight * 1.0);
-          // const width = element.offsetWidth;
-          // const height = element.offsetHeight;
+        // Aumente a qualidade do DPI definindo uma resolução mais alta
+        const dpi = 300; // Escolha a resolução desejada (exemplo: 300 DPI)
+        const scaleBy = dpi / 96; // 96 é a resolução padrão do navegador
 
-          console.log(width, height);
+        // Redimensione o canvas para a resolução desejada
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.floor(element.offsetWidth * scaleBy);
+        canvas.height = Math.floor(element.offsetHeight * scaleBy);
+
+        html2canvas(element, { scale: scaleBy }).then((canvas) => {
+          const imgData = canvas.toDataURL('image/png', 1.0); // Defina a qualidade máxima (1.0)
+
           pdf.addImage(imgData, 'PNG', 0, 0, width, height);
 
-
-          // pdf.output('dataurlnewwindow');
           a4.style.display = 'none';
-          pdf.save('documento.pdf');
+
+          // Abra o PDF em uma nova janela/modal
+          const pdfBlob = pdf.output('blob');
+          const pdfUrl = URL.createObjectURL(pdfBlob);
+          window.open(pdfUrl, '_blank');
+
           this.blockedDocument = false;
           this.loading = false;
-
-
         });
       }
     }
   }
+
 }

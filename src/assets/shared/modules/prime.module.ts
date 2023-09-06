@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { BlockUIModule } from 'primeng/blockui';
@@ -31,7 +32,8 @@ import { ToastModule } from 'primeng/toast';
     InputTextareaModule,
     SkeletonModule,
     ToastModule,
-    DividerModule
+    DividerModule,
+    FormsModule
 
   ],
   providers: [

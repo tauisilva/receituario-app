@@ -1,10 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { PrimeModule } from 'src/assets/shared/modules/prime.module';
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
+    imports: [RouterTestingModule, PrimeModule],
     declarations: [AppComponent]
   }));
 
