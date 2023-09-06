@@ -47,9 +47,10 @@ export class AppComponent {
     this.loading = true;
     if (this.form.valid) {
       setTimeout(() => {
+        const now = new Date();
         this.loading = false;
         this.skeleton = true;
-        this.pdf = true;
+        this.form.value.date = now.toLocaleDateString();
         this.loadData(this.form.value);
       }, 2000);
     }

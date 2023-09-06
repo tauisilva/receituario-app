@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DividerModule } from 'primeng/divider';
 import { EditorModule } from 'primeng/editor';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -29,7 +30,8 @@ import { ToastModule } from 'primeng/toast';
     InputTextModule,
     InputTextareaModule,
     SkeletonModule,
-    ToastModule
+    ToastModule,
+    DividerModule
 
   ],
   providers: [

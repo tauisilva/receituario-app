@@ -44,7 +44,7 @@
           </form>
         </section>
         <section *ngIf="!skeleton && content" class="w-full flex flex-column h-full gap-2 sm:w-6">
-          <section class="shadow-1 border-round-md result" [style.background]="color">
+          <section class="shadow-1 border-round-md" [style.background]="'url(./../assets/img/marca.png) no-repeat center center ' + color">
             <section class="headers flex">
               <p-avatar image="assets/img/{{img}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
               <section>
@@ -53,9 +53,12 @@
                 <p class="m-0 text-xs font-bold fontDados">CRO/BR 000</p>
               </section>
             </section>
-            <section class="infos h-10rem px-2">
-              <h1 class="fontDados">{{name}}</h1>
-              <p class="line-height-1 fontTxt" [innerHTML]="data"></p>
+            <section class="infos min-h-10rem px-2 h-full">
+              <section class="fontTxt font-bold flex justify-content-between">
+                <p class="text-base m-0">{{name}}</p>
+                <p class="m-0 fontTxt">{{date}}</p>
+              </section>
+              <p class="line-height-1 text-xl font-bold fontTxt"[innerHTML]="data"></p>
             </section>
             <section class="footer flex w-full justify-content-between">
               <section class="p-2 flex flex-column justify-content-end">
@@ -95,18 +98,26 @@
         </section>
       </section>
       <section class="a4" id="a4">
-        <section class="results" [style.background]="color" id="result">
+        <section class="results gap-2 marca" id="result" [style.background]="'url(./../assets/img/marca.png) no-repeat center center ' + color">
           <section class="headers flex">
             <p-avatar image="assets/img/{{img}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
-            <section>
-              <p class="m-0 fontName">Thaynara martins</p>
-              <p class="m-0 fontDados font-semibold">Dentista</p>
-              <p class="m-0 fontDados font-bold">CRO/BR 000</p>
+            <section class="p-1">
+              <p class="m-0 fontName font-bold text-xl">Thaynara martins</p>
+              <p class="m-0 fontDados font-semibold text-sm">Dentista</p>
+              <p class="m-0 fontDados font-semibold text-base">CRO/BR 000</p>
             </section>
           </section>
-          <section class="infos px-2">
-            <p class="fontDados">{{name}}</p>
-            <p class="line-height-1 fontTxt"[innerHTML]="data"></p>
+          <!-- <section class="infos px-2">
+            <p class="fontDados text-2xl">{{name}}</p>
+            <p-divider></p-divider>
+            <p class="line-height-1 text-xl fontTxt"[innerHTML]="data"></p>
+          </section> -->
+          <section class="infos min-h-10rem px-2 h-full">
+            <section class="fontTxt font-bold flex justify-content-between">
+              <p class="text-base m-0">{{name}}</p>
+              <p class="m-0 fontTxt">{{date}}</p>
+            </section>
+            <p class="line-height-1 text-xl font-bold fontTxt"[innerHTML]="data"></p>
           </section>
           <section class="footer flex w-full justify-content-between">
             <section class="p-2 flex flex-column justify-content-end">
