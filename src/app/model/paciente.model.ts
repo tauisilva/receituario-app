@@ -1,6 +1,6 @@
 export class Paciente {
   dados: string | undefined;
-  date: Date | undefined;
+  data: Date | undefined;
   img: string[] = [];
   nome: string | undefined;
 }

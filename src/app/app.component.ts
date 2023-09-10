@@ -21,7 +21,7 @@ export class AppComponent {
   name: string | undefined;
   data: string | undefined;
   img: string[] = [];
-  date: Date | undefined;
+  date: String | undefined;
   color: String = '#c5ebff';
   blockedDocument: boolean = false;
   constructor(
@@ -36,7 +36,7 @@ export class AppComponent {
   setForm(): FormGroup {
     return new FormGroup({
       dados: new FormControl(null),
-      date: new FormControl(null),
+      data: new FormControl(null),
       img: new FormControl(null),
       nome: new FormControl(null),
     });
@@ -48,8 +48,9 @@ export class AppComponent {
         const now = new Date();
         this.loading = false;
         this.skeleton = true;
-        this.form.value.date = now.toLocaleDateString();
+        // this.form.value.date = now.toLocaleDateString();
         this.loadData(this.form.value);
+        console.log(this.form.value);
       }, 2000);
     }
   }
@@ -58,7 +59,7 @@ export class AppComponent {
     if (p) {
       this.name = p.nome;
       this.data = p.dados;
-      this.date = p.date;
+      this.date = p.data?.toLocaleDateString();
       this.img = p.img;
       // this.pdf = p.dados;
       this.color = p.img[0] === 'happy.jpeg' ? '#c5ebff' : p.img[0] === 'scared.png' ? '#bef2ff' : '#c5ebff';

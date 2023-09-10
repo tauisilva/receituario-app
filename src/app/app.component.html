@@ -13,15 +13,19 @@
         <section class="w-full form md:w-6">
           <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gap-3 flex flex-column h-full">
             <section class="inputs flex flex-column gap-3">
-              <span class="p-float-label">
-                <input pInputText class="w-full" id="username" formControlName="nome" />
-                <label htmlFor="username">Nome do Paciente</label>
-              </span>
+              <section class="flex w-full gap-2">
+
+                <span class="p-float-label w-full">
+                  <input pInputText class="w-full" id="username" formControlName="nome" />
+                  <label htmlFor="username">Nome do Paciente</label>
+                </span>
+
+                <p-calendar formControlName="data" dateFormat="dd.mm.yy"></p-calendar>
+              </section>
               <span class="p-float-label">
                 <label htmlFor="infos">Informações:</label>
               </span>
               <p-editor formControlName="dados" [style]="{ height: '10rem' }"></p-editor>
-              <!-- <p-calendar class="max-w-full"  [inline]="true" [showWeek]="true" formControlName="date" selectionMode="range" [showTime]="true" [showSeconds]="true" [showButtonBar]="true"></p-calendar> -->
               <section class="imgs flex gap-1">
                 <section class="flex w-6 gap-1">
                   <p-checkbox formControlName="img" value="happy.jpeg"></p-checkbox>
@@ -44,25 +48,29 @@
           </form>
         </section>
         <section *ngIf="!skeleton && content" class="w-full flex flex-column h-full gap-2 sm:w-6">
-          <section class="shadow-1 border-round-md"
-            [style.background]="'url(./../assets/img/marca.png) no-repeat center center ' + color">
-            <section class="headers flex">
-              <p-avatar image="assets/img/{{img}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
-              <section>
-                <p class="m-0 text-xl fontName">Thaynara martins</p>
-                <p class="m-0 text-sm fontDados">Dentista</p>
-                <p class="m-0 text-xs font-bold fontDados">CRO/BR 000</p>
+          <section class="shadow-1 border-round-md" [style.background]="color">
+            <section class="headers flex justify-content-between">
+              <section class=" flex">
+                <p-avatar image="assets/img/{{img}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+                <section>
+                  <p class="m-0 text-xl fontName">Thaynara martins</p>
+                  <p class="m-0 text-xs font-bold fontDados">CRO/BR 1234</p>
+                </section>
+              </section>
+              <section class="text-center">
+                <p class="m-0 fontTxt p-2 font-bold">{{date}}</p>
               </section>
             </section>
             <section class="infos min-h-10rem px-2 h-full">
               <section class="fontTxt font-bold flex justify-content-between">
                 <p class="text-base m-0">{{name}}</p>
-                <p class="m-0 fontTxt">{{date}}</p>
               </section>
-              <p class="line-height-1 text-xl font-bold fontTxt" [innerHTML]="data"></p>
+              <!-- <p class="line-height-1 text-xl font-bold fontTxt" [innerHTML]="data"></p> -->
+              <p [innerHTML]="data"></p>
             </section>
             <section class="footer flex w-full justify-content-between">
               <section class="p-2 flex flex-column justify-content-end">
+                <p class="m-0 text-xs font-bold fontDados">Dentista</p>
                 <p class="m-0 text-xs font-bold fontDados">(61)XXXX - XXXX</p>
                 <p class="m-0 text-xs font-bold fontDados">email@gmail.com</p>
                 <p class="m-0 text-xs font-bold fontDados">Rua x, x dado, 73xxx-00 - cidade/BR</p>
@@ -99,30 +107,28 @@
         </section>
       </section>
       <section class="a4" id="a4">
-        <section class="results gap-2 marca" id="result"
-          [style.background]="'url(./../assets/img/marca.png) no-repeat center center ' + color">
-          <section class="headers flex">
-            <p-avatar image="assets/img/{{img}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
-            <section class="p-1">
-              <p class="m-0 fontName font-bold text-xl">Thaynara martins</p>
-              <p class="m-0 fontDados font-semibold text-sm">Dentista</p>
-              <p class="m-0 fontDados font-semibold text-base">CRO/BR 000</p>
+        <section class="results gap-2 marca" id="result" [style.background]="color">
+          <section class="headers flex justify-content-between">
+            <section class=" flex">
+              <p-avatar image="assets/img/{{img}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
+              <section>
+                <p class="m-0 text-xl fontName">Thaynara martins</p>
+                <p class="m-0 text-xs font-bold fontDados">CRO/BR 000</p>
+              </section>
+            </section>
+            <section class="text-center">
+              <p class="m-0 fontTxt p-2 font-bold">{{date}}</p>
             </section>
           </section>
-          <!-- <section class="infos px-2">
-            <p class="fontDados text-2xl">{{name}}</p>
-            <p-divider></p-divider>
-            <p class="line-height-1 text-xl fontTxt"[innerHTML]="data"></p>
-          </section> -->
           <section class="infos min-h-10rem px-2 h-full">
             <section class="fontTxt font-bold flex justify-content-between">
               <p class="font-bold m-0">{{name}}</p>
-              <p class="m-0 fontTxt">{{date}}</p>
             </section>
             <p class="line-height-1 text-xl font-bold fontTxt" [innerHTML]="data"></p>
           </section>
           <section class="footer flex w-full justify-content-between">
             <section class="p-2 flex flex-column justify-content-end">
+              <p class="m-0 text-xs font-bold fontDados">Dentista</p>
               <p class="m-0 text-xs font-bold fontDados">(61)XXXX - XXXX</p>
               <p class="m-0 text-xs font-bold fontDados">email@gmail.com</p>
               <p class="m-0 text-xs font-bold fontDados">Rua x, x dado, 73xxx-00 - cidade/BR</p>
