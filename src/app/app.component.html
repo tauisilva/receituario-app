@@ -48,7 +48,7 @@
           </form>
         </section>
         <section *ngIf="!skeleton && content" class="w-full flex flex-column h-full gap-2 sm:w-6">
-          <section class="shadow-1 border-round-md" [style.background]="color">
+          <section class="shadow-1 border-round-md marca"  [style.background]="'url(./../assets/img/marca.png) no-repeat center center' + color">
             <section class="headers flex justify-content-between">
               <section class=" flex">
                 <p-avatar image="assets/img/{{img}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
@@ -107,7 +107,7 @@
         </section>
       </section>
       <section class="a4" id="a4">
-        <section class="results gap-2 marca" id="result" [style.background]="color">
+        <section class="results gap-2 marca" id="result"  [style.background]="'url(./../assets/img/marca.png) no-repeat center center ' + color">
           <section class="headers flex justify-content-between">
             <section class=" flex">
               <p-avatar image="assets/img/{{img}}" styleClass="mr-2" size="large" shape="circle"></p-avatar>
